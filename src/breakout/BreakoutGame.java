@@ -101,6 +101,7 @@ public class BreakoutGame {
     
     private void gameLoop(Ball ball, BrickManager brickManager){
         canvas.animate(() -> {
+            
 
             
             if (!isPaused) {
@@ -112,9 +113,14 @@ public class BreakoutGame {
                     if (ball.health <= 0){
                         canvas.removeAll();
                         loosingText.setText("You lost !! , Try Again!");
-                        canvas.add(loosingText);
                         loosingText.setPosition(CANVAS_WIDTH/2 - 20, CANVAS_HEIGHT/2);
                         loosingText.setFontSize(20);
+                        canvas.add(loosingText);
+                        
+                        Audio.endGameAudio.play();
+
+                        Audio.endGameAudio.stop();
+
                     }
                     
                     if (isPaused){
@@ -153,6 +159,16 @@ public class BreakoutGame {
     }
 
     public static void main(String[] args){
-        new BreakoutGame();
+        Menu menu = new Menu();
+
+        menu.getQuitButton().onClick(()-> menu.getCanvas().closeWindow());
+
+        menu.getStartButton().onClick(()-> {
+            Audio.themeGameMusic.stop();
+            menu.getCanvas().closeWindow();
+            new BreakoutGame();
+        });
+
+        
     }
 }

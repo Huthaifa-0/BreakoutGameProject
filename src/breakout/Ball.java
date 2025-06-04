@@ -187,6 +187,13 @@ public class Ball {
 
             else if (isOverlapping(ballHitbox, brickRect)) {
                 calculateBrickCollision(canvas,brick);
+                
+                Audio.destroyEffect.stop();
+                Audio.destroyEffect.play();
+                
+                // Add one to the Score
+                // Score.playerScore++; 
+
             }
 
 
